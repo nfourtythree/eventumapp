@@ -37,6 +37,33 @@ Route::get('/', function()
 	return View::make('home.index');
 });
 
+Route::get('password/(:any)/(:any)', array('before' => 'auth'), function($username, $password)
+{
+    $user = DB::table('users')->where('username','=',$username)->first();
+
+    if (!empty($user) and $password != '')
+    {
+        $affected = DB::table('users')->where('id','=',$user->id)->update(array('password'=>Hash::make($password)));
+    }
+
+    @var_dump($affected);
+});
+
+Route::get('auth/(:any)/(:any)', function($username, $password){
+
+    if (Auth::attempt(array('username'=>$username, 'password'=>$password)))
+    {
+        die('Logged in');
+    }
+    else
+    {
+        die('no way son');
+
+    }
+
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers
