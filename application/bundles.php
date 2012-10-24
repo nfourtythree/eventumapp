@@ -34,7 +34,7 @@
 */
 
 return array(
-
 	'docs' => array('handles' => 'docs'),
-
+	'bob',
+	'admin'=> array('handles'=>'admin')
 );
